@@ -14,3 +14,10 @@ How tcpdump looks like on Linux:
 https://www.poftut.com/tcpdump-tutorial-with-examples/
 
 
+Linux tcpdump's man: https://www.tcpdump.org/manpages/tcpdump.1.html
+
+Suggestion for an architecture of a Windows tcpdump:
+1. Receive input from user via cmd
+2. Class that receives packets from network card
+3. Class that filters them according to the input from the user
+4. Class that prints output to the user
