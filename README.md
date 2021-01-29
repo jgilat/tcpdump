@@ -14,9 +14,8 @@ Npcap dev tutorial: https://nmap.org/npcap/guide/npcap-tutorial.html
 
 Suggestion for an architecture of a Windows tcpdump:
 -
-1. Receive input from user via cmd
-2. Class that receives packets from network card
-3. Class that filters them according to the input from the user
-4. Class that prints output to the user
-
-(update the above to include interfaces to npcap and the pcap interface)
+1. Get a list of attached network adapters: pcap_if_t *alldevs;
+2. Receive BPF filter from user via cmd
+3. Sniff packets from selected network adapter: pcap_open()
+4. Filter according to BPF selection: pcap_compile(), pcap_setfilter()
+5. Print packets to cmd: printf()
