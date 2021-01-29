@@ -22,3 +22,8 @@ Suggestion for an architecture of a Windows tcpdump:
 3. Sniff packets from selected network adapter: pcap_open()
 4. Filter according to BPF selection: pcap_compile(), pcap_setfilter(). Specific BPF convention can be found here: https://nmap.org/npcap/guide/wpcap/pcap-filter.html
 5. Print packets to cmd: printf()
+
+Development status
+-
+1. Problems reading a string from user: three different methods don't work, for two different reasons (see detailed around line 110 in the code).
+2. Need to implement a tcp header struct to get a correct TCP port reading while sniffing (unless support for UDP only is OK, then I already have it implemented).
