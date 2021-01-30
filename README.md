@@ -23,7 +23,16 @@ Suggestion for an architecture of a Windows tcpdump:
 4. Filter according to BPF selection: pcap_compile(), pcap_setfilter(). Specific BPF convention can be found here: https://nmap.org/npcap/guide/wpcap/pcap-filter.html
 5. Print packets to cmd: printf()
 
-Development status
+Header files (one for each proposed class) and their main functions
 -
-1. Problems reading a string from user: three different methods don't work, for two different reasons (see detailed around line 110 in the code).
-2. Need to implement a tcp header struct to get a correct TCP port reading while sniffing (unless support for UDP only is OK, then I already have it implemented).
+
+- BPF.h
+  - Init: LoadNpcapDlls()
+  - Get a list of network adapters from computer: pcap_findalldevs_ex()
+  - Get BPF from user: scanf_s()
+  - Open the adapter and free device list: pcap_open(), pcap_freealldevs()
+  - Compile and set BPF: pcap_compile(), pcap_setfilter()
+  
+- Sniffer.h
+  - Start the capture: pcap_loop()
+  - Handle the packets: packet_handler()
