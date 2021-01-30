@@ -1,5 +1,4 @@
-# tcpdump
-tcpdump implemented on windows 10.
+# Poor man's tcpdump on Windows
 
 tcmpdump is a standard in network sniffing: parses a readable filter expression -> prints filtered packets received from the network tap. "the cmd equiv of wireshark".
 
