@@ -13,7 +13,7 @@ Linux tcpdump's man: https://www.tcpdump.org/manpages/tcpdump.1.html
 
 Npcap dev tutorial: https://nmap.org/npcap/guide/npcap-tutorial.html
 
-New proposition for classes
+New proposition for classes and code flow
 -
 
 - device_list():  
@@ -32,3 +32,17 @@ New proposition for classes
   - dtor: pcap_breakloop()
 - funcs to remain on main():
   - LoadNpcapDlls()
+  
+- Very general proposed code flow on main(), by order:
+  - LoadNpcapDlls()
+  - device_list()
+  - user chooses a device -> we copy its name to a different location in memory
+  - ~device_list()
+  - capture_device()
+  - capture_device.pcap_datalink() - check ETH validity
+  - BPF()
+  - BPF.pcap_setfilter()
+  - ~BPF()
+  - looper()
+  - ~looper()
+  - ~capture_device()
