@@ -13,17 +13,22 @@ Linux tcpdump's man: https://www.tcpdump.org/manpages/tcpdump.1.html
 
 Npcap dev tutorial: https://nmap.org/npcap/guide/npcap-tutorial.html
 
-
-Header files (one for each proposed class) and their main functions
+New proposition for classes
 -
 
-- BPF.h
-  - Init: LoadNpcapDlls()
-  - Get a list of network adapters from computer: pcap_findalldevs_ex()
-  - Get BPF from user: scanf_s()
-  - Open the adapter and free device list: pcap_open(), pcap_freealldevs()
-  - Compile and set BPF: pcap_compile(), pcap_setfilter()
-  
-- Sniffer.h
-  - Start the capture: pcap_loop()
-  - Handle the packets: packet_handler()
+- device_list():  
+  - ctor: pcap_findalldevs_ex()
+  - dtor: pcap_freealldevs(alldevs)
+- capture_device() (when created, receives a device from device_list object):
+  - ctor: pcap_open()
+  - dtor: pcap_close()
+  - funcs: pcap_loop(), packet_handler(), pcap_datalink(), packet_handler() (latter func must be public since looper() ctor will use it)
+- BPF() (when created, receives a capture_device object):
+  - ctor: pcap_compile()
+  - dtor: pcap_freecode()
+  - funcs: pcap_setfilter()
+- looper() (when created, receives a capture_device object):
+  - ctor: pcap_loop()
+  - dtor: pcap_breakloop()
+- funcs to remain on main():
+  - LoadNpcapDlls()
