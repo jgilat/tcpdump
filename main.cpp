@@ -67,10 +67,7 @@ int main()
 	pcap_t* adhandle;
 	char errbuf[PCAP_ERRBUF_SIZE];
 	u_int netmask;
-	//char packet_filter[] = "ip and tcp";
 	char packet_filter[256];
-	char c;
-	int len = 0;
 	struct bpf_program fcode;
 
 	/* Load Npcap and its functions. */
@@ -107,18 +104,7 @@ int main()
 	scanf_s("%d", &inum);
 
 	printf("Enter the bpf filter:");
-	/* three different attempts of getting a string from user are here:
-	scanf_s("%s", &packet_filter); //seems like it tries to change an immutable variable here
-
-	while (scanf_s("%c", &c) == 1) { //==1 is to ensure you have not reached end of file(EOF)
-		if (c == '\n')
-			break;
-		packet_filter[len++] = c;
-	}
-
-	fgets(packet_filter, sizeof(packet_filter), stdin); //this and the prev one are just skipped by the program,
-	//it doesn't even wait for an input here
-	*/
+	scanf_s("%s", packet_filter, 256);
 
 	if (inum < 1 || inum > i)
 	{
